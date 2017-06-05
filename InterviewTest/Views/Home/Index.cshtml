@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div style="padding-top:20px;">
+    @foreach (var item in Model)
+    {
+        <ul>
+            <li>
+                @item.Key
+                <ul>
+                    @foreach (var subItem in item.Value)
+                    {
+                        <li>@subItem.name</li>
+                    }
+                </ul>
+            </li>
+        </ul>
+    }
+</div>
+
