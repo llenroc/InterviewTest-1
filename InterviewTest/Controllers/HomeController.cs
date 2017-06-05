@@ -15,7 +15,7 @@ namespace InterviewTest.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = await _mainModel.GetPetList();
+            var model = await _mainModel.GetSortedCatList();
             return View(model);
         }
 

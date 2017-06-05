@@ -6,6 +6,6 @@ namespace InterviewTest.Abstractions
 {
     public interface IMainModel
     {
-        Task<IDictionary<string, IEnumerable<Pet>>> GetPetList();
+        Task<IDictionary<string, IEnumerable<Pet>>> GetSortedCatList();
     }
 }

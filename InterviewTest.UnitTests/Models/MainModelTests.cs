@@ -17,7 +17,7 @@ namespace InterviewTest.UnitTests.Models
     {
         private readonly List<object[]> _data = new List<object[]>
         {
-            new object[] { new List<Person>() { new Person() { name = "Jane", gender = "Female", pets = new List<Pet>() { new Pet() { name = "Zordon" }, new Pet() { name="Chip" } } }, new Person() { name="Joe", gender="Male" } } }
+            new object[] { new List<Person>() { new Person() { name = "Jane", gender = "Female", pets = new List<Pet>() { new Pet() { name = "Zordon", type="Cat" }, new Pet() { name="Chip", type="Cat" } } }, new Person() { name="Joe", gender="Male", pets=new List<Pet>() { new Pet() { name="Koda", type="Dog" } } } } }
         };
 
         public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
@@ -42,7 +42,7 @@ namespace InterviewTest.UnitTests.Models
         {
             _dataService.Setup(x => x.GetPersonData()).ReturnsAsync(personList);
 
-            var list = await _mainModel.GetPetList();
+            var list = await _mainModel.GetSortedCatList();
 
             Assert.NotNull(list);
 
@@ -51,6 +51,9 @@ namespace InterviewTest.UnitTests.Models
 
             // Gender Count to Categories
             Assert.Equal(personList.Select(x => x.gender).Distinct().Count(), list.Count);
+
+            // Filtered To Cats Only
+            Assert.Equal(personList.SelectMany(x => x.pets).Count(x => x.type == "Cat"), list.SelectMany(x => x.Value).Count());
 
             // Alphabetical ordering of Pets
             foreach (var gender in list)
